@@ -1,0 +1,608 @@
+local settings = {
+    defaultcolor = Color3.fromRGB(0, 0, 255),
+    teamcheck = false,
+    teamcolor = true
+};
+
+local runService = game:GetService("RunService");
+local players = game:GetService("Players");
+
+local localPlayer = players.LocalPlayer;
+local camera = workspace.CurrentCamera;
+
+local newVector2, newColor3, newDrawing = Vector2.new, Color3.new, Drawing.new;
+local tan, rad = math.tan, math.rad;
+local round = function(...) local a = {}; for i,v in next, table.pack(...) do a[i] = math.round(v); end return unpack(a); end;
+local wtvp = function(...) local a, b = camera.WorldToViewportPoint(camera, ...); return newVector2(a.X, a.Y), b, a.Z end;
+
+local espCache = {};
+
+local function createEsp(part)
+    local drawings = {};
+
+    drawings.box = newDrawing("Square");
+    drawings.box.Thickness = 1;
+    drawings.box.Filled = false;
+    drawings.box.Color = settings.defaultcolor;
+    drawings.box.Visible = false;
+    drawings.box.ZIndex = 2;
+
+    drawings.boxoutline = newDrawing("Square");
+    drawings.boxoutline.Thickness = 3;
+    drawings.boxoutline.Filled = false;
+    drawings.boxoutline.Color = newColor3();
+    drawings.boxoutline.Visible = false;
+    drawings.boxoutline.ZIndex = 1;
+
+    drawings.name = newDrawing("Text");
+    drawings.name.Text = "Generator";
+    drawings.name.Size = 20;
+
+    drawings.name.Color = drawings.box.Color;
+
+    drawings.name.Center = true;
+    drawings.name.Visible = false;
+    drawings.name.ZIndex = 2;
+
+    espCache[part] = drawings;
+end
+
+local function removeEsp(part)
+    if rawget(espCache, part) then
+        for _, drawing in next, espCache[part] do
+            drawing:Remove();
+        end
+        espCache[part] = nil;
+    end
+end
+
+local function updateEsp(part, esp)
+    local position, visible, depth = wtvp(part.Position);
+    esp.box.Visible = visible;
+    esp.boxoutline.Visible = visible;
+
+    if visible then
+        local scaleFactor = 1 / (depth * tan(rad(camera.FieldOfView / 2)) * 2) * 1000;
+        local width, height = round(2 * scaleFactor, 2.5 * scaleFactor); -- Adjusted box size
+        local x, y = round(position.X, position.Y);
+
+        esp.box.Size = newVector2(width, height);
+        esp.box.Position = newVector2(round(x - width / 2, y - height / 2));
+        esp.boxoutline.Size = esp.box.Size;
+        esp.boxoutline.Position = esp.box.Position;
+
+        esp.name.Visible = true;
+        esp.name.Position = newVector2(round(x), round(y - height / 2) - 30);
+    else
+        esp.name.Visible = false;
+    end
+end
+
+local part = game:GetService("Workspace").Generator4.Mass
+createEsp(part);
+
+runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
+    updateEsp(part, espCache[part]);
+end)
+
+local settings = {
+    defaultcolor = Color3.fromRGB(0, 0, 255),
+    teamcheck = false,
+    teamcolor = true
+};
+
+local runService = game:GetService("RunService");
+local players = game:GetService("Players");
+
+local localPlayer = players.LocalPlayer;
+local camera = workspace.CurrentCamera;
+
+local newVector2, newColor3, newDrawing = Vector2.new, Color3.new, Drawing.new;
+local tan, rad = math.tan, math.rad;
+local round = function(...) local a = {}; for i,v in next, table.pack(...) do a[i] = math.round(v); end return unpack(a); end;
+local wtvp = function(...) local a, b = camera.WorldToViewportPoint(camera, ...); return newVector2(a.X, a.Y), b, a.Z end;
+
+local espCache = {};
+
+local function createEsp(part)
+    local drawings = {};
+
+    drawings.box = newDrawing("Square");
+    drawings.box.Thickness = 1;
+    drawings.box.Filled = false;
+    drawings.box.Color = settings.defaultcolor;
+    drawings.box.Visible = false;
+    drawings.box.ZIndex = 2;
+
+    drawings.boxoutline = newDrawing("Square");
+    drawings.boxoutline.Thickness = 3;
+    drawings.boxoutline.Filled = false;
+    drawings.boxoutline.Color = newColor3();
+    drawings.boxoutline.Visible = false;
+    drawings.boxoutline.ZIndex = 1;
+
+    drawings.name = newDrawing("Text");
+    drawings.name.Text = "Generator";
+    drawings.name.Size = 20;
+
+    drawings.name.Color = drawings.box.Color;
+
+    drawings.name.Center = true;
+    drawings.name.Visible = false;
+    drawings.name.ZIndex = 2;
+
+    espCache[part] = drawings;
+end
+
+local function removeEsp(part)
+    if rawget(espCache, part) then
+        for _, drawing in next, espCache[part] do
+            drawing:Remove();
+        end
+        espCache[part] = nil;
+    end
+end
+
+local function updateEsp(part, esp)
+    local position, visible, depth = wtvp(part.Position);
+    esp.box.Visible = visible;
+    esp.boxoutline.Visible = visible;
+
+    if visible then
+        local scaleFactor = 1 / (depth * tan(rad(camera.FieldOfView / 2)) * 2) * 1000;
+        local width, height = round(2 * scaleFactor, 2.5 * scaleFactor); -- Adjusted box size
+        local x, y = round(position.X, position.Y);
+
+        esp.box.Size = newVector2(width, height);
+        esp.box.Position = newVector2(round(x - width / 2, y - height / 2));
+        esp.boxoutline.Size = esp.box.Size;
+        esp.boxoutline.Position = esp.box.Position;
+
+        esp.name.Visible = true;
+        esp.name.Position = newVector2(round(x), round(y - height / 2) - 30);
+    else
+        esp.name.Visible = false;
+    end
+end
+
+local part = game:GetService("Workspace").Generator6.Mass
+createEsp(part);
+
+runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
+    updateEsp(part, espCache[part]);
+end)
+
+local settings = {
+    defaultcolor = Color3.fromRGB(0, 0, 255),
+    teamcheck = false,
+    teamcolor = true
+};
+
+local runService = game:GetService("RunService");
+local players = game:GetService("Players");
+
+local localPlayer = players.LocalPlayer;
+local camera = workspace.CurrentCamera;
+
+local newVector2, newColor3, newDrawing = Vector2.new, Color3.new, Drawing.new;
+local tan, rad = math.tan, math.rad;
+local round = function(...) local a = {}; for i,v in next, table.pack(...) do a[i] = math.round(v); end return unpack(a); end;
+local wtvp = function(...) local a, b = camera.WorldToViewportPoint(camera, ...); return newVector2(a.X, a.Y), b, a.Z end;
+
+local espCache = {};
+
+local function createEsp(part)
+    local drawings = {};
+
+    drawings.box = newDrawing("Square");
+    drawings.box.Thickness = 1;
+    drawings.box.Filled = false;
+    drawings.box.Color = settings.defaultcolor;
+    drawings.box.Visible = false;
+    drawings.box.ZIndex = 2;
+
+    drawings.boxoutline = newDrawing("Square");
+    drawings.boxoutline.Thickness = 3;
+    drawings.boxoutline.Filled = false;
+    drawings.boxoutline.Color = newColor3();
+    drawings.boxoutline.Visible = false;
+    drawings.boxoutline.ZIndex = 1;
+
+    drawings.name = newDrawing("Text");
+    drawings.name.Text = "Generator";
+    drawings.name.Size = 20;
+
+    drawings.name.Color = drawings.box.Color;
+
+    drawings.name.Center = true;
+    drawings.name.Visible = false;
+    drawings.name.ZIndex = 2;
+
+    espCache[part] = drawings;
+end
+
+local function removeEsp(part)
+    if rawget(espCache, part) then
+        for _, drawing in next, espCache[part] do
+            drawing:Remove();
+        end
+        espCache[part] = nil;
+    end
+end
+
+local function updateEsp(part, esp)
+    local position, visible, depth = wtvp(part.Position);
+    esp.box.Visible = visible;
+    esp.boxoutline.Visible = visible;
+
+    if visible then
+        local scaleFactor = 1 / (depth * tan(rad(camera.FieldOfView / 2)) * 2) * 1000;
+        local width, height = round(2 * scaleFactor, 2.5 * scaleFactor); -- Adjusted box size
+        local x, y = round(position.X, position.Y);
+
+        esp.box.Size = newVector2(width, height);
+        esp.box.Position = newVector2(round(x - width / 2, y - height / 2));
+        esp.boxoutline.Size = esp.box.Size;
+        esp.boxoutline.Position = esp.box.Position;
+
+        esp.name.Visible = true;
+        esp.name.Position = newVector2(round(x), round(y - height / 2) - 30);
+    else
+        esp.name.Visible = false;
+    end
+end
+
+local part = game:GetService("Workspace").Generator2.Mass
+createEsp(part);
+
+runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
+    updateEsp(part, espCache[part]);
+end)
+
+local settings = {
+    defaultcolor = Color3.fromRGB(0, 0, 255),
+    teamcheck = false,
+    teamcolor = true
+};
+
+local runService = game:GetService("RunService");
+local players = game:GetService("Players");
+
+local localPlayer = players.LocalPlayer;
+local camera = workspace.CurrentCamera;
+
+local newVector2, newColor3, newDrawing = Vector2.new, Color3.new, Drawing.new;
+local tan, rad = math.tan, math.rad;
+local round = function(...) local a = {}; for i,v in next, table.pack(...) do a[i] = math.round(v); end return unpack(a); end;
+local wtvp = function(...) local a, b = camera.WorldToViewportPoint(camera, ...); return newVector2(a.X, a.Y), b, a.Z end;
+
+local espCache = {};
+
+local function createEsp(part)
+    local drawings = {};
+
+    drawings.box = newDrawing("Square");
+    drawings.box.Thickness = 1;
+    drawings.box.Filled = false;
+    drawings.box.Color = settings.defaultcolor;
+    drawings.box.Visible = false;
+    drawings.box.ZIndex = 2;
+
+    drawings.boxoutline = newDrawing("Square");
+    drawings.boxoutline.Thickness = 3;
+    drawings.boxoutline.Filled = false;
+    drawings.boxoutline.Color = newColor3();
+    drawings.boxoutline.Visible = false;
+    drawings.boxoutline.ZIndex = 1;
+
+    drawings.name = newDrawing("Text");
+    drawings.name.Text = "Generator";
+    drawings.name.Size = 20;
+
+    drawings.name.Color = drawings.box.Color;
+
+    drawings.name.Center = true;
+    drawings.name.Visible = false;
+    drawings.name.ZIndex = 2;
+
+    espCache[part] = drawings;
+end
+
+local function removeEsp(part)
+    if rawget(espCache, part) then
+        for _, drawing in next, espCache[part] do
+            drawing:Remove();
+        end
+        espCache[part] = nil;
+    end
+end
+
+local function updateEsp(part, esp)
+    local position, visible, depth = wtvp(part.Position);
+    esp.box.Visible = visible;
+    esp.boxoutline.Visible = visible;
+
+    if visible then
+        local scaleFactor = 1 / (depth * tan(rad(camera.FieldOfView / 2)) * 2) * 1000;
+        local width, height = round(2 * scaleFactor, 2.5 * scaleFactor); -- Adjusted box size
+        local x, y = round(position.X, position.Y);
+
+        esp.box.Size = newVector2(width, height);
+        esp.box.Position = newVector2(round(x - width / 2, y - height / 2));
+        esp.boxoutline.Size = esp.box.Size;
+        esp.boxoutline.Position = esp.box.Position;
+
+        esp.name.Visible = true;
+        esp.name.Position = newVector2(round(x), round(y - height / 2) - 30);
+    else
+        esp.name.Visible = false;
+    end
+end
+
+local part = game:GetService("Workspace").Generator1.Mass
+createEsp(part);
+
+runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
+    updateEsp(part, espCache[part]);
+end)
+
+local settings = {
+    defaultcolor = Color3.fromRGB(0, 0, 255),
+    teamcheck = false,
+    teamcolor = true
+};
+
+local runService = game:GetService("RunService");
+local players = game:GetService("Players");
+
+local localPlayer = players.LocalPlayer;
+local camera = workspace.CurrentCamera;
+
+local newVector2, newColor3, newDrawing = Vector2.new, Color3.new, Drawing.new;
+local tan, rad = math.tan, math.rad;
+local round = function(...) local a = {}; for i,v in next, table.pack(...) do a[i] = math.round(v); end return unpack(a); end;
+local wtvp = function(...) local a, b = camera.WorldToViewportPoint(camera, ...); return newVector2(a.X, a.Y), b, a.Z end;
+
+local espCache = {};
+
+local function createEsp(part)
+    local drawings = {};
+
+    drawings.box = newDrawing("Square");
+    drawings.box.Thickness = 1;
+    drawings.box.Filled = false;
+    drawings.box.Color = settings.defaultcolor;
+    drawings.box.Visible = false;
+    drawings.box.ZIndex = 2;
+
+    drawings.boxoutline = newDrawing("Square");
+    drawings.boxoutline.Thickness = 3;
+    drawings.boxoutline.Filled = false;
+    drawings.boxoutline.Color = newColor3();
+    drawings.boxoutline.Visible = false;
+    drawings.boxoutline.ZIndex = 1;
+
+    drawings.name = newDrawing("Text");
+    drawings.name.Text = "Generator";
+    drawings.name.Size = 20;
+
+    drawings.name.Color = drawings.box.Color;
+
+    drawings.name.Center = true;
+    drawings.name.Visible = false;
+    drawings.name.ZIndex = 2;
+
+    espCache[part] = drawings;
+end
+
+local function removeEsp(part)
+    if rawget(espCache, part) then
+        for _, drawing in next, espCache[part] do
+            drawing:Remove();
+        end
+        espCache[part] = nil;
+    end
+end
+
+local function updateEsp(part, esp)
+    local position, visible, depth = wtvp(part.Position);
+    esp.box.Visible = visible;
+    esp.boxoutline.Visible = visible;
+
+    if visible then
+        local scaleFactor = 1 / (depth * tan(rad(camera.FieldOfView / 2)) * 2) * 1000;
+        local width, height = round(2 * scaleFactor, 2.5 * scaleFactor); -- Adjusted box size
+        local x, y = round(position.X, position.Y);
+
+        esp.box.Size = newVector2(width, height);
+        esp.box.Position = newVector2(round(x - width / 2, y - height / 2));
+        esp.boxoutline.Size = esp.box.Size;
+        esp.boxoutline.Position = esp.box.Position;
+
+        esp.name.Visible = true;
+        esp.name.Position = newVector2(round(x), round(y - height / 2) - 30);
+    else
+        esp.name.Visible = false;
+    end
+end
+
+local part = game:GetService("Workspace").Generator7.Mass
+createEsp(part);
+
+runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
+    updateEsp(part, espCache[part]);
+end)
+
+local settings = {
+    defaultcolor = Color3.fromRGB(0, 0, 255),
+    teamcheck = false,
+    teamcolor = true
+};
+
+local runService = game:GetService("RunService");
+local players = game:GetService("Players");
+
+local localPlayer = players.LocalPlayer;
+local camera = workspace.CurrentCamera;
+
+local newVector2, newColor3, newDrawing = Vector2.new, Color3.new, Drawing.new;
+local tan, rad = math.tan, math.rad;
+local round = function(...) local a = {}; for i,v in next, table.pack(...) do a[i] = math.round(v); end return unpack(a); end;
+local wtvp = function(...) local a, b = camera.WorldToViewportPoint(camera, ...); return newVector2(a.X, a.Y), b, a.Z end;
+
+local espCache = {};
+
+local function createEsp(part)
+    local drawings = {};
+
+    drawings.box = newDrawing("Square");
+    drawings.box.Thickness = 1;
+    drawings.box.Filled = false;
+    drawings.box.Color = settings.defaultcolor;
+    drawings.box.Visible = false;
+    drawings.box.ZIndex = 2;
+
+    drawings.boxoutline = newDrawing("Square");
+    drawings.boxoutline.Thickness = 3;
+    drawings.boxoutline.Filled = false;
+    drawings.boxoutline.Color = newColor3();
+    drawings.boxoutline.Visible = false;
+    drawings.boxoutline.ZIndex = 1;
+
+    drawings.name = newDrawing("Text");
+    drawings.name.Text = "Generator";
+    drawings.name.Size = 20;
+
+    drawings.name.Color = drawings.box.Color;
+
+    drawings.name.Center = true;
+    drawings.name.Visible = false;
+    drawings.name.ZIndex = 2;
+
+    espCache[part] = drawings;
+end
+
+local function removeEsp(part)
+    if rawget(espCache, part) then
+        for _, drawing in next, espCache[part] do
+            drawing:Remove();
+        end
+        espCache[part] = nil;
+    end
+end
+
+local function updateEsp(part, esp)
+    local position, visible, depth = wtvp(part.Position);
+    esp.box.Visible = visible;
+    esp.boxoutline.Visible = visible;
+
+    if visible then
+        local scaleFactor = 1 / (depth * tan(rad(camera.FieldOfView / 2)) * 2) * 1000;
+        local width, height = round(2 * scaleFactor, 2.5 * scaleFactor); -- Adjusted box size
+        local x, y = round(position.X, position.Y);
+
+        esp.box.Size = newVector2(width, height);
+        esp.box.Position = newVector2(round(x - width / 2, y - height / 2));
+        esp.boxoutline.Size = esp.box.Size;
+        esp.boxoutline.Position = esp.box.Position;
+
+        esp.name.Visible = true;
+        esp.name.Position = newVector2(round(x), round(y - height / 2) - 30);
+    else
+        esp.name.Visible = false;
+    end
+end
+
+local part = game:GetService("Workspace").Generator3.Mass
+createEsp(part);
+
+runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
+    updateEsp(part, espCache[part]);
+end)
+
+local settings = {
+    defaultcolor = Color3.fromRGB(0, 0, 255),
+    teamcheck = false,
+    teamcolor = true
+};
+
+local runService = game:GetService("RunService");
+local players = game:GetService("Players");
+
+local localPlayer = players.LocalPlayer;
+local camera = workspace.CurrentCamera;
+
+local newVector2, newColor3, newDrawing = Vector2.new, Color3.new, Drawing.new;
+local tan, rad = math.tan, math.rad;
+local round = function(...) local a = {}; for i,v in next, table.pack(...) do a[i] = math.round(v); end return unpack(a); end;
+local wtvp = function(...) local a, b = camera.WorldToViewportPoint(camera, ...); return newVector2(a.X, a.Y), b, a.Z end;
+
+local espCache = {};
+
+local function createEsp(part)
+    local drawings = {};
+
+    drawings.box = newDrawing("Square");
+    drawings.box.Thickness = 1;
+    drawings.box.Filled = false;
+    drawings.box.Color = settings.defaultcolor;
+    drawings.box.Visible = false;
+    drawings.box.ZIndex = 2;
+
+    drawings.boxoutline = newDrawing("Square");
+    drawings.boxoutline.Thickness = 3;
+    drawings.boxoutline.Filled = false;
+    drawings.boxoutline.Color = newColor3();
+    drawings.boxoutline.Visible = false;
+    drawings.boxoutline.ZIndex = 1;
+
+    drawings.name = newDrawing("Text");
+    drawings.name.Text = "Generator";
+    drawings.name.Size = 20;
+
+    drawings.name.Color = drawings.box.Color;
+
+    drawings.name.Center = true;
+    drawings.name.Visible = false;
+    drawings.name.ZIndex = 2;
+
+    espCache[part] = drawings;
+end
+
+local function removeEsp(part)
+    if rawget(espCache, part) then
+        for _, drawing in next, espCache[part] do
+            drawing:Remove();
+        end
+        espCache[part] = nil;
+    end
+end
+
+local function updateEsp(part, esp)
+    local position, visible, depth = wtvp(part.Position);
+    esp.box.Visible = visible;
+    esp.boxoutline.Visible = visible;
+
+    if visible then
+        local scaleFactor = 1 / (depth * tan(rad(camera.FieldOfView / 2)) * 2) * 1000;
+        local width, height = round(2 * scaleFactor, 2.5 * scaleFactor); -- Adjusted box size
+        local x, y = round(position.X, position.Y);
+
+        esp.box.Size = newVector2(width, height);
+        esp.box.Position = newVector2(round(x - width / 2, y - height / 2));
+        esp.boxoutline.Size = esp.box.Size;
+        esp.boxoutline.Position = esp.box.Position;
+
+        esp.name.Visible = true;
+        esp.name.Position = newVector2(round(x), round(y - height / 2) - 30);
+    else
+        esp.name.Visible = false;
+    end
+end
+
+local part = game:GetService("Workspace").Generator5.Mass
+createEsp(part);
+
+runService:BindToRenderStep("esp", Enum.RenderPriority.Camera.Value, function()
+    updateEsp(part, espCache[part]);
+end)
